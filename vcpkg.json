@@ -1,0 +1,8 @@
+{
+  "name": "ode-lab-variant6",
+  "version-string": "1.0.0",
+  "dependencies": [
+    "gtest"
+  ],
+  "builtin-baseline": "866e9e258a76437074a5cf02d4c2d71b53bff2f8"
+}

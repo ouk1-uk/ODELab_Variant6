@@ -1,0 +1,62 @@
+C++20 local compiler: g++ 14.2.0 / CMake 3.31.6
+Local CMake build without GoogleTest: successful
+== ODEDemo ==
+Euler: 2.5937425
+RK4:   2.7182797 (exact exp(1)=2.7182818)
+
+--- Strong exception guarantee ---
+Caught InvalidDerivativeException at x=0.4000000
+Previous trajectory preserved: true
+
+--- Additional input error ---
+Caught std::invalid_argument: Integration step must be positive
+
+--- Stack unwinding + RAII + rethrow ---
+[enter] levelOne
+[enter] levelTwo
+[enter] levelThree
+[exit] levelThree
+[middle] invalid derivative at x=0.0000000, y=1.0000000; rethrow
+[exit] levelTwo
+[exit] levelOne
+[top] caught InvalidDerivativeException: ODE derivative returned NaN or infinity
+
+== AntipatternDemo ==
+--- Throwing int ---
+catch(...) caught int (std::exception did not)
+--- Throwing std::string ---
+catch(...) caught string (std::exception did not)
+--- Throwing std::invalid_argument ---
+specific catch: A standard exception
+
+== C++ test-source verification using local adapter (NOT Google Test) ==
+[PASS] ODETaskTest.InitialInvariantsAndGetters
+[PASS] ODETaskTest.EulerConstantDerivative
+[PASS] ODETaskTest.EulerExponentialApproximation
+[PASS] ODETaskTest.RungeKutta4ApproximatesExponential
+[PASS] ODETaskTest.ShortensFinalStepToReachRightEndpoint
+[PASS] ODETaskTest.InitialConditionsAtNegativeX
+[PASS] ODETaskTest.RejectsZeroOrNegativeStep
+[PASS] ODETaskTest.RejectsInvalidInterval
+[PASS] ODETaskTest.RejectsNonFiniteInitialValues
+[PASS] ODETaskTest.RejectsNonFiniteEndAndStep
+[PASS] ODETaskTest.NonFiniteExceptionProvidesDiagnosticData
+[PASS] ODETaskTest.RejectsUnrepresentableIntervalWidth
+[PASS] ODETaskTest.RejectsZeroMaximumSteps
+[PASS] ODETaskTest.ReachesExactAllowedStepLimit
+[PASS] ODETaskTest.RejectsExceedingStepLimitWithDetails
+[PASS] ODETaskTest.InvalidDerivativeNanThrowsCustomException
+[PASS] ODETaskTest.InvalidDerivativeInfThrowsCustomException
+[PASS] ODETaskTest.DerivativeExceptionHasCoordinates
+[PASS] ODETaskTest.OverflowDuringNumericIntegrationThrows
+[PASS] ODETaskTest.RejectsUnknownMethodAndEmptyCallback
+[PASS] ODETaskTest.InvalidIndexThrowsStandardException
+[PASS] ODETaskTest.SolveStrongGuaranteeAfterInvalidDerivative
+[PASS] ODETaskTest.StepLimitFailureLeavesInitialTrajectoryUnchanged
+[PASS] ODETaskTest.SolveStrongGuaranteeAfterCallbackThrows
+[PASS] ODETaskTest.SolveStrongGuaranteeAfterOverflow
+[PASS] ODETaskTest.SetParametersStrongGuaranteeOnInvalidStep
+[PASS] ODETaskTest.SuccessfulSetParametersClearsStaleTrajectory
+[PASS] ScopeLoggerTest.LogsReverseDestructionOrder
+[PASS] ScopeLoggerTest.DestructorIsNoThrow
+Total: 29, passed: 29, failed: 0

@@ -1,0 +1,70 @@
+Negative self-check: intentionally injected trajectory_.clear() at the start of solve() into a separate temporary source copy.
+Original implementation was NOT modified.
+The same 29 C++ test scenarios are compiled/run with a local macro adapter (NOT Google Test).
+
+== Mutated implementation ==
+[PASS] ODETaskTest.InitialInvariantsAndGetters
+[PASS] ODETaskTest.EulerConstantDerivative
+[PASS] ODETaskTest.EulerExponentialApproximation
+[PASS] ODETaskTest.RungeKutta4ApproximatesExponential
+[PASS] ODETaskTest.ShortensFinalStepToReachRightEndpoint
+[PASS] ODETaskTest.InitialConditionsAtNegativeX
+[PASS] ODETaskTest.RejectsZeroOrNegativeStep
+[PASS] ODETaskTest.RejectsInvalidInterval
+[PASS] ODETaskTest.RejectsNonFiniteInitialValues
+[PASS] ODETaskTest.RejectsNonFiniteEndAndStep
+[PASS] ODETaskTest.NonFiniteExceptionProvidesDiagnosticData
+[PASS] ODETaskTest.RejectsUnrepresentableIntervalWidth
+[PASS] ODETaskTest.RejectsZeroMaximumSteps
+[PASS] ODETaskTest.ReachesExactAllowedStepLimit
+[PASS] ODETaskTest.RejectsExceedingStepLimitWithDetails
+[PASS] ODETaskTest.InvalidDerivativeNanThrowsCustomException
+[PASS] ODETaskTest.InvalidDerivativeInfThrowsCustomException
+[PASS] ODETaskTest.DerivativeExceptionHasCoordinates
+[PASS] ODETaskTest.OverflowDuringNumericIntegrationThrows
+[PASS] ODETaskTest.RejectsUnknownMethodAndEmptyCallback
+[PASS] ODETaskTest.InvalidIndexThrowsStandardException
+/mnt/data/ODELab_Variant6/tests/ODETests.cpp:20 FAIL: expected.size() != task.trajectory().size() (11 vs 0)
+[FAIL] ODETaskTest.SolveStrongGuaranteeAfterInvalidDerivative
+[PASS] ODETaskTest.StepLimitFailureLeavesInitialTrajectoryUnchanged
+/mnt/data/ODELab_Variant6/tests/ODETests.cpp:20 FAIL: expected.size() != task.trajectory().size() (6 vs 0)
+[FAIL] ODETaskTest.SolveStrongGuaranteeAfterCallbackThrows
+/mnt/data/ODELab_Variant6/tests/ODETests.cpp:20 FAIL: expected.size() != task.trajectory().size() (9 vs 0)
+[FAIL] ODETaskTest.SolveStrongGuaranteeAfterOverflow
+[PASS] ODETaskTest.SetParametersStrongGuaranteeOnInvalidStep
+[PASS] ODETaskTest.SuccessfulSetParametersClearsStaleTrajectory
+[PASS] ScopeLoggerTest.LogsReverseDestructionOrder
+[PASS] ScopeLoggerTest.DestructorIsNoThrow
+Total: 29, passed: 26, failed: 3
+
+== Restored original implementation ==
+[PASS] ODETaskTest.InitialInvariantsAndGetters
+[PASS] ODETaskTest.EulerConstantDerivative
+[PASS] ODETaskTest.EulerExponentialApproximation
+[PASS] ODETaskTest.RungeKutta4ApproximatesExponential
+[PASS] ODETaskTest.ShortensFinalStepToReachRightEndpoint
+[PASS] ODETaskTest.InitialConditionsAtNegativeX
+[PASS] ODETaskTest.RejectsZeroOrNegativeStep
+[PASS] ODETaskTest.RejectsInvalidInterval
+[PASS] ODETaskTest.RejectsNonFiniteInitialValues
+[PASS] ODETaskTest.RejectsNonFiniteEndAndStep
+[PASS] ODETaskTest.NonFiniteExceptionProvidesDiagnosticData
+[PASS] ODETaskTest.RejectsUnrepresentableIntervalWidth
+[PASS] ODETaskTest.RejectsZeroMaximumSteps
+[PASS] ODETaskTest.ReachesExactAllowedStepLimit
+[PASS] ODETaskTest.RejectsExceedingStepLimitWithDetails
+[PASS] ODETaskTest.InvalidDerivativeNanThrowsCustomException
+[PASS] ODETaskTest.InvalidDerivativeInfThrowsCustomException
+[PASS] ODETaskTest.DerivativeExceptionHasCoordinates
+[PASS] ODETaskTest.OverflowDuringNumericIntegrationThrows
+[PASS] ODETaskTest.RejectsUnknownMethodAndEmptyCallback
+[PASS] ODETaskTest.InvalidIndexThrowsStandardException
+[PASS] ODETaskTest.SolveStrongGuaranteeAfterInvalidDerivative
+[PASS] ODETaskTest.StepLimitFailureLeavesInitialTrajectoryUnchanged
+[PASS] ODETaskTest.SolveStrongGuaranteeAfterCallbackThrows
+[PASS] ODETaskTest.SolveStrongGuaranteeAfterOverflow
+[PASS] ODETaskTest.SetParametersStrongGuaranteeOnInvalidStep
+[PASS] ODETaskTest.SuccessfulSetParametersClearsStaleTrajectory
+[PASS] ScopeLoggerTest.LogsReverseDestructionOrder
+[PASS] ScopeLoggerTest.DestructorIsNoThrow
+Total: 29, passed: 29, failed: 0
